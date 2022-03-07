@@ -540,7 +540,7 @@ def train(
           compute_metrics=jax.process_index() == 0,
           step=host_step,
           predict_fn=functools.partial(
-              predict_fn, train_state=trainer.train_state),
+              predict_fn, train_state=train_state, rng=jax.random.PRNGKey(0)),
           score_fn=functools.partial(score_fn, train_state=trainer.train_state))
       if not concurrent_metrics:
         # Ensure metrics are finished being computed.
